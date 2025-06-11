@@ -1,0 +1,69 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: #fff;
+            margin: 0;
+            padding: 0;
+        }
+
+        .topbar {
+            background-color:rgb(255, 255, 255);
+            padding: 10px;
+            color: black;
+        }
+
+        .nav {
+            background-color:#1D396C;
+            display: flex;
+            justify-content: space-around;
+            padding: 10px;
+        }
+
+        .nav a {
+            color: white;
+            text-decoration: none;
+            padding: 5px 10px;
+        }
+
+        .nav a:hover {
+            background-color: #005bbb;
+        }
+
+        .container {
+            padding: 20px;
+        }
+
+        .chart {
+            margin-bottom: 50px;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="topbar">
+        <img src="{% static 'graficos/img/logo_fmp.jpg' %}" alt="Logo da FMP" height="120">
+    </div>
+
+    <div class="nav">
+    <a href="{% url 'index' %}">Home</a>
+    <a href="{% url 'adm' %}">ADM</a>
+    <a href="{% url 'ads' %}">ADS</a>
+    <a href="{% url 'ped' %}">PED</a>
+    <a href="{% url 'prg' %}">PRG</a>
+    <a href="{% url 'diversos' %}">Diversos</a>
+    <a href="{% url 'login' %}">Login</a>
+    </div>
+
+    <div class="container">
+        <h2>HOME.</p>
+    </div>
+
+</body>
+</html>
