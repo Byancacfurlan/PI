@@ -3,13 +3,71 @@
 <html lang="pt-br">
 <head>
     <meta charset="UTF-8">
-
+ <title>Perfil Discente </title>  
     <style>
         body {
-            font-family: Arial, sans-serif;
-            background: #fff;
-            margin: 0;
-            padding: 0;
+            font-family: 'Arial', sans-serif;
+            font-size: 16px;
+            color: #333;
+            line-height: 1.6;
+            background-color: #f9f9f9;
+        }
+        header {
+            background-color: #1D396C;
+            padding: 20px;
+        }
+
+        .top-bar {
+            background-color: #1D396C;
+            color: #333;
+            padding: 20px;
+            display: flex;
+            justify-content: flex-end;
+            gap: 20px;
+            border-bottom: 1px solid #ddd;
+        }
+        footer {
+            background-color: #1D396C;;
+            color: white;
+            text-align: center;
+            padding: 10px;
+            height: 3.5rem;
+            width: 100%;
+            position: sticky;
+        }
+        .fixed-bar {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            background-color: #1D396C;
+            color: white;
+            text-align: center;
+            padding: 15px;
+            z-index: 999;
+        }
+
+        footer a {
+            color: #ffd400;
+            text-decoration: none;
+        }
+
+        @media (max-width: 600px) {
+            .top-bar {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 5px;
+                font-size: 0.8rem;
+            }
+        
+            nav ul {
+                flex-direction: column;
+                align-items: center;
+            }
+
+            nav ul li {
+                margin: 5px 0;
+            }
         }
 
         .topbar {
@@ -46,7 +104,9 @@
 </head>
 
 <body>
-
+    <div class="top-bar">
+    
+    </div>
     <div class="topbar">
         <img src="{% static 'graficos/img/logo_fmp.jpg' %}" alt="Logo da FMP" height="120">
     </div>
@@ -66,5 +126,9 @@
         <p>PED</p>
     </div>
 
+    <footer class="fixed-bar">
+
+        <p class="rights"><span>&copy;&nbsp;</span>Todos os direitos reservados. <span> Desenvolvido por Alan, Byanca Furlan, Rithiely Schmitt e Thiago Simas.</a></span>
+    </footer>
 </body>
 </html>
