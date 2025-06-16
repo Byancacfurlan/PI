@@ -118,6 +118,12 @@
     <div class="container">
         <h2>Processos Gerenciais</h2>
         <p>PRG</p>
+        
+         {% for imagem in imagens %}
+            <div class="chart">
+                <img src="{% static imagem %}" alt="Gráfico">
+            </div>
+        {% endfor %}
     </div>
 
     <footer class="fixed-bar">

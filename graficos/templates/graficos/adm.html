@@ -122,6 +122,12 @@
     <div class="container">
         <h2>Administração</h2>
         <p>ADM</p>
+
+     {% for imagem in imagens %}
+            <div class="chart">
+                <img src="{% static imagem %}" alt="Gráfico">
+            </div>
+        {% endfor %}
     </div>
 
     <footer class="fixed-bar">

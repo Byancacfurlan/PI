@@ -7,17 +7,76 @@ def index(request):
     return render(request, 'graficos/index.html')
 
 def adm(request):
-    return render(request, 'graficos/adm.html')
+    g = Grafico("respostas.csv")
+
+    # Define o filtro pelo curso "Administração"
+    filtro = {'qual_curso_você_faz_na_fmp': 'Administração'}
+
+    g.grafico_barra_dupla('qual_a_sua_faixa_etária', 'qual_curso_você_faz_na_fmp', filtro=filtro)
+    g.grafico_empilhado('você_está_trabalhando', 'você_trabalha_na_área_do_curso_em_que_está_matriculado', filtro=filtro)
+    g.grafico_barra_simples('como_você_realiza_o_trajeto_até_a_fmp', filtro=filtro)
+    g.grafico_barra_simples('como_você_se_identifica_com_relação_a_seu_gênero', filtro=filtro)
+    g.grafico_barra_simples('qual_a_sua_escolaridade', filtro=filtro)
+    g.grafico_barra_simples('qual_sua_jornada_diária_de_trabalho', filtro=filtro)
+    g.grafico_barra_simples('você_pratica_alguma_atividade_física', filtro=filtro)
+
+    pasta_imagens = os.path.join(settings.STATICFILES_DIRS[0], 'graficos', 'img')
+    imagens = [f'graficos/img/{arquivo}' 
+        for arquivo in os.listdir(pasta_imagens) 
+            if arquivo.endswith(('.png', '.jpeg', '.gif', 'html'))]
+
+    return render(request, 'graficos/adm.html', {'imagens': imagens})
 
 def ads(request):
-    # Geração dos gráficos (mantido como estava)
-   
+    g = Grafico("respostas.csv")
+
+    # Define o filtro pelo curso "Administração"
+    filtro = {'qual_curso_você_faz_na_fmp': 'Análise e Desenvolvimento de Sistemas'}
+
+    g.grafico_barra_dupla('qual_a_sua_faixa_etária', 'qual_curso_você_faz_na_fmp', filtro=filtro)
+    g.grafico_empilhado('você_está_trabalhando', 'você_trabalha_na_área_do_curso_em_que_está_matriculado', filtro=filtro)
+    g.grafico_barra_simples('como_você_realiza_o_trajeto_até_a_fmp', filtro=filtro)
+    g.grafico_interativo('qual_a_sua_faixa_etária', 'qual_curso_você_faz_na_fmp', filtro=filtro)
+
+    pasta_imagens = os.path.join(settings.STATICFILES_DIRS[0], 'graficos', 'img')
+    imagens = [f'graficos/img/{arquivo}'
+        for arquivo in os.listdir(pasta_imagens) 
+            if arquivo.endswith(('.png', '.jpeg', '.gif', 'html'))]
+
     return render(request, 'graficos/ads.html')
 
 def ped(request):
+    g = Grafico("respostas.csv")
+
+    # Define o filtro pelo curso "Administração"
+    filtro = {'qual_curso_você_faz_na_fmp': 'Pedagogia'}
+
+    g.grafico_barra_dupla('qual_a_sua_faixa_etária', 'qual_curso_você_faz_na_fmp', filtro=filtro)
+    g.grafico_empilhado('você_está_trabalhando', 'você_trabalha_na_área_do_curso_em_que_está_matriculado', filtro=filtro)
+    g.grafico_barra_simples('como_você_realiza_o_trajeto_até_a_fmp', filtro=filtro)
+    g.grafico_interativo('qual_a_sua_faixa_etária', 'qual_curso_você_faz_na_fmp', filtro=filtro)
+
+    pasta_imagens = os.path.join(settings.STATICFILES_DIRS[0], 'graficos', 'img')
+    imagens = [f'graficos/img/{arquivo}'
+        for arquivo in os.listdir(pasta_imagens) 
+            if arquivo.endswith(('.png', '.jpeg', '.gif', 'html'))]
     return render(request, 'graficos/ped.html')
 
 def prg(request):
+    g = Grafico("respostas.csv")
+
+    # Define o filtro pelo curso "Administração"
+    filtro = {'qual_curso_você_faz_na_fmp': 'Processos Gerenciais'}
+
+    g.grafico_barra_dupla('qual_a_sua_faixa_etária', 'qual_curso_você_faz_na_fmp', filtro=filtro)
+    g.grafico_empilhado('você_está_trabalhando', 'você_trabalha_na_área_do_curso_em_que_está_matriculado', filtro=filtro)
+    g.grafico_barra_simples('como_você_realiza_o_trajeto_até_a_fmp', filtro=filtro)
+    g.grafico_interativo('qual_a_sua_faixa_etária', 'qual_curso_você_faz_na_fmp', filtro=filtro)
+
+    pasta_imagens = os.path.join(settings.STATICFILES_DIRS[0], 'graficos', 'img')
+    imagens = [f'graficos/img/{arquivo}'
+        for arquivo in os.listdir(pasta_imagens) 
+            if arquivo.endswith(('.png', '.jpeg', '.gif', 'html'))]
     return render(request, 'graficos/prg.html')
 
 def diversos(request):

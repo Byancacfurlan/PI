@@ -70,45 +70,67 @@ class GraficoBase:
         ]
 
 class Grafico(GraficoBase):
-    def grafico_barra_simples(self, coluna, titulo=''):
+    def grafico_barra_simples(self, coluna, filtro=None, titulo=''):
+        df = self.df
+        if filtro:
+            for col, val in filtro.items():
+                df = df[df[col] == val]
         plt.figure(figsize=(10, 5))
-        sns.countplot(data=self.df, x=coluna, order=self.df[coluna].value_counts().index)
+        sns.countplot(data=df, x=coluna, order=df[coluna].value_counts().index)
         plt.title(titulo or f'Contagem por {coluna}')
         plt.xticks(rotation=45)
         plt.tight_layout()
-        plt.savefig('static/graficos/img/grafico_barra_simples.png')
-        plt.close() 
+        
+        # Novo nome baseado na coluna
+        nome_arquivo = f'grafico_barra_simples_{coluna}.png'.replace(' ', '_')
+        caminho_completo = os.path.join('static/graficos/img', nome_arquivo)
+        plt.savefig(caminho_completo)
+        plt.close()
 
 
 
-    def grafico_barra_dupla(self, coluna_x, coluna_hue, titulo=''):
+    def grafico_barra_dupla(self, coluna_x, coluna_hue, filtro=None, titulo=''):
+        df = self.df
+        if filtro:
+            for col, val in filtro.items():
+                df = df[df[col] == val]
         plt.figure(figsize=(10, 6))
-        sns.countplot(data=self.df, x=coluna_x, hue=coluna_hue, order=self.df[coluna_x].value_counts().index)
+        sns.countplot(data=df, x=coluna_x, hue=coluna_hue, order=df[coluna_x].value_counts().index)
         plt.title(titulo or f'{coluna_x} vs {coluna_hue}')
         plt.xticks(rotation=45)
         plt.tight_layout()
-        plt.savefig('static/graficos/img/grafico_barra_dupla.png')
-        plt.close() 
+        
+        # Nome único baseado nas colunas
+        nome_arquivo = f'grafico_barra_dupla_{coluna_x}_{coluna_hue}.png'.replace(' ', '_')
+        caminho_completo = os.path.join('static/graficos/img', nome_arquivo)
+        plt.savefig(caminho_completo)
+        plt.close()
 
 
 
-
-    def grafico_empilhado(self, coluna_x, coluna_stack, titulo=''):
-        crosstab = pd.crosstab(self.df[coluna_x], self.df[coluna_stack])
+    def grafico_empilhado(self, coluna_x, coluna_stack, filtro=None, titulo=''):
+        df = self.df
+        if filtro:
+            for col, val in filtro.items():
+                df = df[df[col] == val]
+        crosstab = pd.crosstab(df[coluna_x], df[coluna_stack])
         crosstab.plot(kind='bar', stacked=True, figsize=(10, 6))
         plt.title(titulo or f'{coluna_x} x {coluna_stack} (empilhado)')
         plt.xlabel(coluna_x)
         plt.ylabel('Contagem')
         plt.legend(title=coluna_stack)
         plt.tight_layout()
-        plt.savefig('static/graficos/img/grafico_empilhado.png')
-        plt.close() 
-
+        
+        # Nome único baseado nas colunas
+        nome_arquivo = f'grafico_empilhado_{coluna_x}_{coluna_stack}.png'.replace(' ', '_')
+        caminho_completo = os.path.join('static/graficos/img', nome_arquivo)
+        plt.savefig(caminho_completo)
+        plt.close()
 
         
 
 
-    def grafico_interativo(self, coluna_x, coluna_color, titulo=''):
+    def grafico_interativo(self, coluna_x, coluna_color, filtro=None, titulo=''):
         fig = px.histogram(
             self.df,
             x=coluna_x,
