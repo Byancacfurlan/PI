@@ -6,18 +6,22 @@
     <meta charset="UTF-8">
     <title>Perfil Discente </title>  
     <style>
-        body {
+        html, body {
+            height: 100%;
+            margin: 0;
+            display: flex;
+            flex-direction: column;
             font-family: 'Arial', sans-serif;
             font-size: 16px;
             color: #333;
             line-height: 1.6;
             background-color: #f9f9f9;
         }
-        header {
+         header {
             background-color: #1D396C;
             padding: 20px;
         }
-
+    
         .top-bar {
             background-color: #1D396C;
             color: #333;
@@ -27,39 +31,10 @@
             gap: 20px;
             border-bottom: 1px solid #ddd;
         }
-       
-        .nav {
-            background-color:#1D396C;
-            display: flex;
-            justify-content: space-around;
+        .topbar {
+            background-color:rgb(255, 255, 255);
             padding: 10px;
-        }
-
-        .nav a {
-            color: white;
-            text-decoration: none;
-            padding: 5px 10px;
-        }
-
-        .nav a:hover {
-            background-color:  #1D396C;;
-        }
-
-        .container {
-            padding: 20px;
-        }
-
-        .chart {
-            margin-bottom: 50px;
-        }
-        footer {
-            background-color: #1D396C;;
-            color: white;
-            text-align: center;
-            padding: 10px;
-            height: 3.5rem;
-            width: 100%;
-            position: sticky;
+            color: black;
         }
         .fixed-bar {
             position: fixed;
@@ -69,13 +44,12 @@
             background-color: #1D396C;
             color: white;
             text-align: center;
-            padding: 15px;
-            z-index: 999;
+            padding: 0px;
         }
-
-        footer a {
-            color: #ffd400;
-            text-decoration: none;
+        footer {
+            background-color: #1D396C;;
+            color: white;
+            font-size: 14px;
         }
 
         @media (max-width: 600px) {
@@ -95,6 +69,32 @@
                 margin: 5px 0;
             }
         }
+        .nav {
+            background-color:#1D396C;
+            display: flex;
+            justify-content: space-around;
+            padding: 10px;
+        }
+
+        .nav a {
+            color: white;
+            text-decoration: none;
+            padding: 5px 10px;
+        }
+
+        .nav a:hover {
+            background-color: #005bbb;
+        }
+
+        .container {
+            flex: 1; 
+            padding: 20px;
+        }
+
+        .chart {
+            margin-bottom: 50px;
+        }
+    </style>
     </style>
 </head>
 
