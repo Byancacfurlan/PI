@@ -52,10 +52,10 @@ def ped(request):
     # Define o filtro pelo curso "Pedagogia"
     filtro = {'qual_curso_você_faz_na_fmp': 'Pedagogia'}
 
-    g.grafico_barra_dupla('qual_a_sua_faixa_etária', 'qual_curso_você_faz_na_fmp', filtro=filtro)
-    g.grafico_empilhado('você_está_trabalhando', 'você_trabalha_na_área_do_curso_em_que_está_matriculado', filtro=filtro)
+    g.grafico_barra_dupla('qual_a_sua_faixa_etária', 'qual_curso_você_faz_na_fmp', filtro)
+    g.grafico_empilhado('você_está_trabalhando', 'você_trabalha_na_área_do_curso_em_que_está_matriculado', filtro)
     g.grafico_barra_simples('como_você_realiza_o_trajeto_até_a_fmp', filtro=filtro)
-    g.grafico_interativo('qual_a_sua_faixa_etária', 'qual_curso_você_faz_na_fmp', filtro=filtro)
+    g.grafico_interativo('qual_a_sua_faixa_etária', 'qual_curso_você_faz_na_fmp', filtro)
 
 
     pasta_imagens = os.path.join(settings.STATICFILES_DIRS[0], 'graficos', 'img')

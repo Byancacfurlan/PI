@@ -125,10 +125,17 @@
         <p>ADS</p>
 
         {% for imagem in imagens %}
+          {% if imagem|slice:"-5:" != ".html" %}
             <div class="chart">
                 <img src="{% static imagem %}" alt="Gráfico">
+                {% else %}
+            {% endif %}
+
             </div>
         {% endfor %}
+
+      
+
     </div>
 
     <footer class="fixed-bar">
