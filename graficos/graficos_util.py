@@ -125,7 +125,7 @@ class Grafico(GraficoBase):
                 df = df[df[col] == val]
         crosstab = pd.crosstab(df[coluna_x], df[coluna_stack])
         crosstab.plot(kind='bar', stacked=True, figsize=(10, 6))
-        plt.title(titulo or f'{coluna_x} x {coluna_stack} (empilhado)')
+        plt.title(titulo or f'{coluna_x.replace('_', ' ')} x {coluna_stack.replace('_', ' ')} (empilhado)')
         plt.xlabel(coluna_x)
         plt.ylabel('Contagem')
         plt.legend(title=coluna_stack)
