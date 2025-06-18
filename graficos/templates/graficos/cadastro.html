@@ -1,0 +1,183 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <title>Perfil Discente</title>
+    <style>
+        html, body {
+            height: 100%;
+            margin: 0;
+            display: flex;
+            flex-direction: column;
+            font-family: 'Arial', sans-serif;
+            font-size: 16px;
+            color: #333;
+            line-height: 1.6;
+            background-color: #f9f9f9;
+        }
+        header {
+            background-color: #1D396C;
+            padding: 20px;
+        }
+        .top-bar {
+            background-color: #1D396C;
+            color: #333;
+            padding: 20px;
+            display: flex;
+            justify-content: flex-end;
+            gap: 20px;
+            border-bottom: 1px solid #ddd;
+        }
+        .topbar {
+            background-color: rgb(255, 255, 255);
+            padding: 10px;
+            color: black;
+        }
+        .fixed-bar {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            background-color: #1D396C;
+            color: white;
+            text-align: center;
+            padding: 0px;
+        }
+        footer {
+            background-color: #1D396C;
+            color: white;
+            font-size: 14px;
+        }
+        @media (max-width: 600px) {
+            .top-bar {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 5px;
+                font-size: 0.8rem;
+            }
+            nav ul {
+                flex-direction: column;
+                align-items: center;
+            }
+            nav ul li {
+                margin: 5px 0;
+            }
+        }
+        .nav {
+            background-color: #1D396C;
+            display: flex;
+            justify-content: space-around;
+            padding: 10px;
+        }
+        .nav a {
+            color: white;
+            text-decoration: none;
+            padding: 5px 10px;
+        }
+        .nav a:hover {
+            background-color: #005bbb;
+        }
+        .container {
+            flex: 1;
+            padding: 20px;
+        }
+        .chart {
+            margin-bottom: 50px;
+        }
+
+
+        /* Estilo para o formulário de login */
+        .form-container {
+            background-color: white;
+            padding: 20px;
+            border-radius: 8px;
+            max-width: 400px;
+            margin: 50px auto;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        .form-container h2 {
+            text-align: center;
+        }
+        .form-container input[type="text"],
+        .form-container input[type="password"] {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 15px; /* Espaço entre os campos */
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            box-sizing: border-box;
+        }
+        .form-container button {
+            width: 100%;
+            padding: 10px;
+            background-color: #1D396C;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+        .form-container button:hover {
+            background-color: #005bbb;
+        }
+    </style>
+</head>
+
+
+<body>
+    <div class="top-bar"></div>
+
+
+    <div class="topbar">
+        <img src="{% static 'graficos/img/logo_fmp.jpg' %}" alt="Logo da FMP" height="120">
+    </div>
+
+
+    <div class="nav">
+        <a href="{% url 'index' %}">Home</a>
+        <a href="{% url 'adm' %}">ADM</a>
+        <a href="{% url 'ads' %}">ADS</a>
+        <a href="{% url 'ped' %}">PED</a>
+        <a href="{% url 'prg' %}">PRG</a>
+        <a href="{% url 'diversos' %}">Diversos</a>
+        <a href="{% url 'login' %}">Login</a>
+        <a href="{% url 'cadastro' %}">Cadastro</a>
+    </div>
+
+
+{% if messages %}
+<ul>
+  {% for message in messages %}
+    <li {% if message.tags %} class="{{ message.tags }}" {% endif %}>{{ message }}</li>
+  {% endfor %}
+</ul>
+{% endif %}
+<div class="container">
+    <div class="form-container">
+        <h2>Cadastro</h2>
+        <form method="post">
+        {% csrf_token %}
+        <label for="email">Email:</label><br>
+        <input type="text" name="email" id="email" required><br><br>
+
+
+        <label for="senha">Senha:</label><br>
+        <input type="password" name="senha" id="senha" required><br><br>
+
+
+        <label for="senha2">Confirme a senha:</label><br>
+        <input type="password" name="senha2" id="senha2" required><br><br>
+
+
+        <button type="submit">Cadastrar</button>
+        </form>
+
+    </div>
+</div>
+
+ <footer class="fixed-bar">
+        <p class="rights"><span>&copy;&nbsp;</span>Todos os direitos reservados. <span> Desenvolvido por Alan, Byanca Furlan, Rithiely Schmitt e Thiago Simas.</span></p>
+    </footer>
+
+</body>
+</html>

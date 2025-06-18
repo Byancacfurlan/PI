@@ -11,6 +11,8 @@ urlpatterns = [
     path('prg/', views.prg, name='prg'),
     path('diversos/', views.diversos, name='diversos'),
     path('login/', views.login_view, name='login'),
+    path('cadastro/', views.cadastro_view, name='cadastro'),
+
 
 ] + static(settings.STATIC_URL, document_root=settings.STATICFILES_DIRS[0])
 

@@ -1,5 +1,5 @@
 from django.shortcuts import render
-from .graficos_util import Grafico
+from .graficos_util import Grafico , UsuarioDAO
 import os
 from django.conf import settings
 
@@ -102,4 +102,62 @@ def diversos(request):
     return render(request, 'graficos/diversos.html', {'imagens': imagens})
 
 def login_view(request):
+    if request.method == 'POST':
+        email = request.POST.get('email')
+        senha = request.POST.get('senha')
+
+
+        dao = UsuarioDAO()
+        usuario = dao.buscar_por_email(email)
+
+
+        if usuario and usuario.autenticar(senha):
+            request.session['usuario_id'] = usuario.id
+            request.session['usuario_email'] = usuario.email
+            return redirect('index')
+        else:
+            messages.error(request, 'Email ou senha incorretos.')
+
+
     return render(request, 'graficos/login.html')
+
+
+def cadastro_view(request):
+    if request.method == 'POST':
+        email = request.POST.get('email', '').strip()
+        senha = request.POST.get('senha', '')
+        senha2 = request.POST.get('senha2', '')
+
+
+        # validando
+        if not email or not senha or not senha2:
+            messages.error(request, 'Preencha todos os campos.')
+            return render(request, 'graficos/cadastro.html')
+
+
+        # validando senhas
+        if senha != senha2:
+            messages.error(request, 'As senhas não coincidem.')
+            return render(request, 'graficos/cadastro.html')
+
+
+        dao = UsuarioDAO()
+
+
+        # ve se o email ja ta em uso
+        if dao.buscar_por_email(email):
+            messages.error(request, 'Este email já está cadastrado.')
+            return render(request, 'graficos/cadastro.html')
+
+
+        # cadastra o usuario
+        try:
+            dao.adicionar_usuario(email, senha)
+            messages.success(request, 'Cadastro realizado com sucesso! Faça login.')
+            return redirect('login')
+        except Exception as e:
+            messages.error(request, f'Erro ao cadastrar: {str(e)}')
+            return render(request, 'graficos/cadastro.html')
+
+
+    return render(request, 'graficos/cadastro.html')
