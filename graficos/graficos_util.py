@@ -68,18 +68,26 @@ class GraficoBase:
             .replace('__', '_')
             for col in self.df.columns
         ]
-
-class Grafico(GraficoBase):
+    
+class Grafico(GraficoBase):    
+    def _abreviar_coluna_idade(self, df, coluna):
+        if 'idade' in coluna or 'faixa_etaria' in coluna:
+            df[coluna] = df[coluna].apply(abreviar_faixa_etaria)
+        return df
+        
     def grafico_barra_simples(self, coluna, filtro=None, titulo=''):
-        df = self.df
+        df = self.df.copy()
+        df = self._abreviar_coluna_idade(df, coluna)
         if filtro:
             for col, val in filtro.items():
                 df = df[df[col] == val]
         plt.figure(figsize=(10, 5))
         sns.countplot(data=df, x=coluna, order=df[coluna].value_counts().index)
         plt.title(titulo or f'Contagem por {coluna}')
-        plt.xticks(rotation=45)
+        plt.xticks(rotation=45, ha='center', fontsize=8)
         plt.tight_layout()
+        
+   
         
         # Novo nome baseado na coluna
         nome_arquivo = f'grafico_barra_simples_{coluna}.png'.replace(' ', '_')
@@ -90,14 +98,16 @@ class Grafico(GraficoBase):
 
 
     def grafico_barra_dupla(self, coluna_x, coluna_hue, filtro=None, titulo=''):
-        df = self.df
+        df = self.df.copy()
         if filtro:
             for col, val in filtro.items():
                 df = df[df[col] == val]
+        df = self._abreviar_coluna_idade(df, coluna_x)
+        df = self._abreviar_coluna_idade(df, coluna_hue)
         plt.figure(figsize=(10, 6))
         sns.countplot(data=df, x=coluna_x, hue=coluna_hue, order=df[coluna_x].value_counts().index)
-        plt.title(titulo or f'{coluna_x} vs {coluna_hue}')
-        plt.xticks(rotation=45)
+        plt.title(titulo or f"{coluna_x.replace('_', ' ').title()} X {coluna_hue.replace('_', ' ').title()}")
+        plt.xticks( ha='center', fontsize=8)
         plt.tight_layout()
         
         # Nome único baseado nas colunas
@@ -119,10 +129,13 @@ class Grafico(GraficoBase):
         plt.xlabel(coluna_x)
         plt.ylabel('Contagem')
         plt.legend(title=coluna_stack)
+        plt.xticks(rotation=45, ha='center', fontsize=8)
+
         plt.tight_layout()
         
         # Nome único baseado nas colunas
         nome_arquivo = f'grafico_empilhado_{coluna_x}_{coluna_stack}.png'.replace(' ', '_')
+        
         caminho_completo = os.path.join('static/graficos/img', nome_arquivo)
         plt.savefig(caminho_completo)
         plt.close()
@@ -142,10 +155,52 @@ class Grafico(GraficoBase):
         fig.update_layout(xaxis_title=coluna_x.replace('_', ' ').title(), yaxis_title='Contagem')
         fig.write_html('static/graficos/img/grafico_interativo.html')
         plt.close() 
-
-
         
+        
+        
+    def grafico_pizza(self, coluna, filtro=None, titulo=''):
+        df = self.df.copy()
+
+        if filtro:
+            for col, val in filtro.items():
+                df = df[df[col] == val]
+
+        df = self._abreviar_coluna_idade(df, coluna)
+
+        fig = px.pie(
+            df,
+            names=coluna,
+            title=titulo or f'Distribuição por {coluna}',
+            hole=0.4  # rosquinha
+        )
+        fig.update_traces(textinfo='percent+label')
+
+        caminho = 'static/graficos/img/grafico_pizza.html'
+        fig.write_html(caminho)
+        plt.close()
 
 
 
+
+
+
+def abreviar_faixa_etaria(valor):
+    valor = str(valor).lower().strip()
+    if "16" in valor and "21" in valor:
+        return "16-21"
+    elif "22" in valor and "26" in valor:
+        return "22-26"
+    elif "27" in valor and "33" in valor:
+        return "27-33"
+    elif "34" in valor and "39" in valor:
+        return "34-39"
+    elif "40" in valor and "45" in valor:
+        return "40-45"
+    elif "46" in valor and "50" in valor:
+        return "46-50"
+    elif "51" in valor and "55" in valor:
+        return "51-55"
+    elif "56" in valor:
+        return "56+"
+    return valor
 

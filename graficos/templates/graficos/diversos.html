@@ -115,15 +115,21 @@
 
     <div class="container">
         <h2>Diversos</h2>
-        <p>Gráfico interativo</p>
+        <p>Gráficos com informações de todos os cursos da FMP</p>
    
      {% for imagem in imagens %}
             <div class="chart">
-                <img src="{% static imagem %}" alt="Gráfico">
+               
+                {% if imagem|slice:"-5:" == ".html" %}
+                    <iframe src="{% static imagem %}" width="100%" height="500px" frameborder="0"></iframe>
+                
+                {% else %}
+                    <img src="{% static imagem %}" alt="Gráfico">
+                {% endif %}
+
             </div>
         {% endfor %}
  </div>
- 
     <footer class="fixed-bar">
 
         <p class="rights"><span>&copy;&nbsp;</span>Todos os direitos reservados. <span> Desenvolvido por Alan, Byanca Furlan, Rithiely Schmitt e Thiago Simas.</a></span>

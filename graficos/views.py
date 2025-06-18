@@ -30,25 +30,26 @@ def adm(request):
 def ads(request):
     g = Grafico("respostas.csv")
 
-    # Define o filtro pelo curso "Administração"
-    filtro = {'qual_curso_você_faz_na_fmp': 'Análise e Desenvolvimento de Sistemas'}
+    # Define o filtro pelo curso "ADS"
+    filtro = {'qual_curso_você_faz_na_fmp': 'Tecnólogo em Análise e Desenvolvimento de Sistemas'}
 
     g.grafico_barra_dupla('qual_a_sua_faixa_etária', 'qual_curso_você_faz_na_fmp', filtro=filtro)
     g.grafico_empilhado('você_está_trabalhando', 'você_trabalha_na_área_do_curso_em_que_está_matriculado', filtro=filtro)
     g.grafico_barra_simples('como_você_realiza_o_trajeto_até_a_fmp', filtro=filtro)
     g.grafico_interativo('qual_a_sua_faixa_etária', 'qual_curso_você_faz_na_fmp', filtro=filtro)
-
+    g.grafico_barra_simples('como_você_realiza_o_trajeto_até_a_fmp', filtro=filtro)
     pasta_imagens = os.path.join(settings.STATICFILES_DIRS[0], 'graficos', 'img')
     imagens = [f'graficos/img/{arquivo}'
         for arquivo in os.listdir(pasta_imagens) 
             if arquivo.endswith(('.png', '.jpeg', '.gif', 'html'))]
 
-    return render(request, 'graficos/ads.html')
+    return render(request, 'graficos/ads.html',  {'imagens': imagens})
 
 def ped(request):
     g = Grafico("respostas.csv")
 
-    # Define o filtro pelo curso "Administração"
+
+    # Define o filtro pelo curso "Pedagogia"
     filtro = {'qual_curso_você_faz_na_fmp': 'Pedagogia'}
 
     g.grafico_barra_dupla('qual_a_sua_faixa_etária', 'qual_curso_você_faz_na_fmp', filtro=filtro)
@@ -56,17 +57,18 @@ def ped(request):
     g.grafico_barra_simples('como_você_realiza_o_trajeto_até_a_fmp', filtro=filtro)
     g.grafico_interativo('qual_a_sua_faixa_etária', 'qual_curso_você_faz_na_fmp', filtro=filtro)
 
+
     pasta_imagens = os.path.join(settings.STATICFILES_DIRS[0], 'graficos', 'img')
     imagens = [f'graficos/img/{arquivo}'
         for arquivo in os.listdir(pasta_imagens) 
             if arquivo.endswith(('.png', '.jpeg', '.gif', 'html'))]
-    return render(request, 'graficos/ped.html')
+    return render(request, 'graficos/ped.html',  {'imagens': imagens})
 
 def prg(request):
     g = Grafico("respostas.csv")
 
     # Define o filtro pelo curso "Administração"
-    filtro = {'qual_curso_você_faz_na_fmp': 'Processos Gerenciais'}
+    filtro = {'qual_curso_você_faz_na_fmp': 'Tecnólogo em Processos Gerenciais'}
 
     g.grafico_barra_dupla('qual_a_sua_faixa_etária', 'qual_curso_você_faz_na_fmp', filtro=filtro)
     g.grafico_empilhado('você_está_trabalhando', 'você_trabalha_na_área_do_curso_em_que_está_matriculado', filtro=filtro)
@@ -77,7 +79,7 @@ def prg(request):
     imagens = [f'graficos/img/{arquivo}'
         for arquivo in os.listdir(pasta_imagens) 
             if arquivo.endswith(('.png', '.jpeg', '.gif', 'html'))]
-    return render(request, 'graficos/prg.html')
+    return render(request, 'graficos/prg.html',  {'imagens': imagens})
 
 def diversos(request):
     g = Grafico("respostas.csv")
@@ -85,6 +87,8 @@ def diversos(request):
     g.grafico_empilhado('você_está_trabalhando', 'você_trabalha_na_área_do_curso_em_que_está_matriculado')
     g.grafico_barra_simples('como_você_realiza_o_trajeto_até_a_fmp')
     g.grafico_interativo('qual_a_sua_faixa_etária', 'qual_curso_você_faz_na_fmp')
+    g.grafico_pizza('qual_curso_você_faz_na_fmp')
+
 
     # Caminho da pasta de imagens de gráficos
     pasta_imagens = os.path.join(settings.STATICFILES_DIRS[0], 'graficos', 'img')
