@@ -1,4 +1,6 @@
 import pandas as pd
+import matplotlib
+matplotlib.use('Agg') 
 import matplotlib.pyplot as plt
 import seaborn as sns
 import plotly.express as px
@@ -84,6 +86,8 @@ class Grafico(GraficoBase):
         plt.figure(figsize=(10, 5))
         sns.countplot(data=df, x=coluna, order=df[coluna].value_counts().index)
         plt.title(titulo or f'Contagem por {coluna}')
+        plt.xlabel(" ")
+        plt.ylabel(" ")
         plt.xticks(rotation=45, ha='center', fontsize=8)
         plt.tight_layout()
         
@@ -106,7 +110,9 @@ class Grafico(GraficoBase):
         df = self._abreviar_coluna_idade(df, coluna_hue)
         plt.figure(figsize=(10, 6))
         sns.countplot(data=df, x=coluna_x, hue=coluna_hue, order=df[coluna_x].value_counts().index)
-        plt.title(titulo or f"{coluna_x.replace('_', ' ').title()} X {coluna_hue.replace('_', ' ').title()}")
+        plt.title(titulo)
+        plt.xlabel(" ")
+        plt.ylabel(" ")
         plt.xticks( ha='center', fontsize=8)
         plt.tight_layout()
         
@@ -125,9 +131,9 @@ class Grafico(GraficoBase):
                 df = df[df[col] == val]
         crosstab = pd.crosstab(df[coluna_x], df[coluna_stack])
         crosstab.plot(kind='bar', stacked=True, figsize=(10, 6))
-        plt.title(titulo or f'{coluna_x.replace('_', ' ')} x {coluna_stack.replace('_', ' ')} (empilhado)')
-        plt.xlabel(coluna_x)
-        plt.ylabel('Contagem')
+        plt.title(titulo or f"{coluna_x.replace('_', ' ')} x {coluna_stack.replace('_', ' ')} (empilhado)")
+        plt.xlabel(" ")
+        plt.ylabel(" ")
         plt.legend(title=coluna_stack)
         plt.xticks(rotation=45, ha='center', fontsize=8)
 
