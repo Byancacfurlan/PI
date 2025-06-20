@@ -76,7 +76,7 @@ def ped(request):
 def prg(request):
     g = Grafico("respostas.csv")
 
-    # Define o filtro pelo curso "Administração"
+    # Define o filtro pelo curso "Tecnólogo em Processos Gerenciais"
     filtro = {'qual_curso_você_faz_na_fmp': 'Tecnólogo em Processos Gerenciais'}
     g.grafico_barra_dupla('qual_a_sua_faixa_etária', 'qual_curso_você_faz_na_fmp', filtro=filtro, titulo = 'Curso x Idade')
     g.grafico_empilhado('você_está_trabalhando', 'você_trabalha_na_área_do_curso_em_que_está_matriculado', filtro=filtro, titulo =' Trabalha x Trabalha na área em que estuda')
@@ -95,6 +95,7 @@ def prg(request):
 
 def diversos(request):
     g = Grafico("respostas.csv")
+    g.grafico_barra_dupla('qual_a_sua_faixa_etária', 'qual_curso_você_faz_na_fmp', titulo = 'Curso x Idade')
     g.grafico_empilhado('você_está_trabalhando', 'você_trabalha_na_área_do_curso_em_que_está_matriculado', titulo = 'Trabalha x Trabalha na área em que estuda')
     g.grafico_barra_simples('como_você_realiza_o_trajeto_até_a_fmp', titulo = 'Trajeto')
     g.grafico_interativo('qual_a_sua_faixa_etária', 'qual_curso_você_faz_na_fmp', titulo = 'Idade X Curso')
@@ -104,7 +105,13 @@ def diversos(request):
     g.grafico_barra_simples('qual_a_sua_escolaridade', titulo = 'Escolaridade')
     g.grafico_barra_simples('qual_sua_jornada_diária_de_trabalho', titulo = 'Jornada diária de trabalho')
     g.grafico_barra_simples('você_pratica_alguma_atividade_física', titulo = 'Atividade física')
-
+    g.grafico_sunburst(
+        coluna_nivel1='qual_curso_você_faz_na_fmp',
+        coluna_nivel2='qual_a_sua_faixa_etária',
+        coluna_nivel3='como_você_se_identifica_com_relação_a_seu_gênero',
+        titulo='Distribuição de Curso, Idade e Gênero'
+)
+    
 
     # Caminho da pasta de imagens de gráficos
     pasta_imagens = os.path.join(settings.STATICFILES_DIRS[0], 'graficos', 'img')

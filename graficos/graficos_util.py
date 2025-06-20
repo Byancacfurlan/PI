@@ -72,23 +72,24 @@ class GraficoBase:
         ]
     
 class Grafico(GraficoBase):    
-    def _abreviar_coluna_idade(self, df, coluna):
-        if 'idade' in coluna or 'faixa_etaria' in coluna:
-            df[coluna] = df[coluna].apply(abreviar_faixa_etaria)
-        return df
+ 
         
     def grafico_barra_simples(self, coluna, filtro=None, titulo=''):
         df = self.df.copy()
-        df = self._abreviar_coluna_idade(df, coluna)
+       
         if filtro:
             for col, val in filtro.items():
                 df = df[df[col] == val]
         plt.figure(figsize=(10, 5))
-        sns.countplot(data=df, x=coluna, order=df[coluna].value_counts().index)
+        ax = sns.countplot(data=df, x=coluna, order=df[coluna].value_counts().index)
         plt.title(titulo or f'Contagem por {coluna}')
         plt.xlabel(" ")
         plt.ylabel(" ")
         plt.xticks(rotation=45, ha='center', fontsize=8)
+        plt.grid(axis='y', linestyle='--', alpha=0.7)
+        for p in ax.patches:
+            altura = p.get_height()
+            ax.text(p.get_x() + p.get_width() / 2.,altura + 0.5, int(altura), ha='center', fontsize=8, color='black')
         plt.tight_layout()
         
    
@@ -106,14 +107,19 @@ class Grafico(GraficoBase):
         if filtro:
             for col, val in filtro.items():
                 df = df[df[col] == val]
-        df = self._abreviar_coluna_idade(df, coluna_x)
-        df = self._abreviar_coluna_idade(df, coluna_hue)
         plt.figure(figsize=(10, 6))
-        sns.countplot(data=df, x=coluna_x, hue=coluna_hue, order=df[coluna_x].value_counts().index)
+        ax = sns.countplot(data=df, x=coluna_x, hue=coluna_hue, order=df[coluna_x].value_counts().index)
         plt.title(titulo)
         plt.xlabel(" ")
         plt.ylabel(" ")
         plt.xticks( ha='center', fontsize=8)
+        plt.grid(axis='y', linestyle='--', alpha=0.7)
+
+        for p in ax.patches:
+            altura = p.get_height()
+            if altura > 0:
+                ax.text(p.get_x() + p.get_width() / 2., altura + 0.5,
+                        int(altura), ha='center', fontsize=8, color='black')
         plt.tight_layout()
         
         # Nome único baseado nas colunas
@@ -130,12 +136,19 @@ class Grafico(GraficoBase):
             for col, val in filtro.items():
                 df = df[df[col] == val]
         crosstab = pd.crosstab(df[coluna_x], df[coluna_stack])
-        crosstab.plot(kind='bar', stacked=True, figsize=(10, 6))
+        ax = crosstab.plot(kind='bar', stacked=True, figsize=(10, 6))
         plt.title(titulo or f"{coluna_x.replace('_', ' ')} x {coluna_stack.replace('_', ' ')} (empilhado)")
         plt.xlabel(" ")
         plt.ylabel(" ")
         plt.legend(title=coluna_stack)
         plt.xticks(rotation=45, ha='center', fontsize=8)
+        plt.grid(axis='y', linestyle='--', alpha=0.7)
+
+        for p in ax.patches:
+            altura = p.get_height()
+            if altura > 0:
+                ax.text(p.get_x() + p.get_width() / 2., altura + 0.5,
+                        int(altura), ha='center', fontsize=8, color='black')
 
         plt.tight_layout()
         
@@ -159,7 +172,8 @@ class Grafico(GraficoBase):
             labels={coluna_x: coluna_x.replace('_', ' ').title()}
         )
         fig.update_layout(xaxis_title=coluna_x.replace('_', ' ').title(), yaxis_title='Contagem')
-        fig.write_html('static/graficos/img/grafico_interativo.html')
+        caminho = 'static/graficos/img/grafico_interativo.html'
+        fig.write_html(caminho)
         plt.close() 
         
         
@@ -171,7 +185,6 @@ class Grafico(GraficoBase):
             for col, val in filtro.items():
                 df = df[df[col] == val]
 
-        df = self._abreviar_coluna_idade(df, coluna)
 
         fig = px.pie(
             df,
@@ -179,34 +192,24 @@ class Grafico(GraficoBase):
             title=titulo or f'Distribuição por {coluna}',
             hole=0.4  # rosquinha
         )
-        fig.update_traces(textinfo='percent+label')
+        fig.update_traces(textinfo='percent+label+value')
 
         caminho = 'static/graficos/img/grafico_pizza.html'
         fig.write_html(caminho)
         plt.close()
 
+    def grafico_sunburst(self, coluna_nivel1, coluna_nivel2, coluna_nivel3, filtro=None, titulo=''):
+        df = self.df.copy()
+        if filtro:
+            for col, val in filtro.items():
+                df = df[df[col] == val]
 
+        fig = px.sunburst(
+            df,
+            path=[coluna_nivel1, coluna_nivel2, coluna_nivel3],
+            title=titulo
+        )
 
-
-
-
-def abreviar_faixa_etaria(valor):
-    valor = str(valor).lower().strip()
-    if "16" in valor and "21" in valor:
-        return "16-21"
-    elif "22" in valor and "26" in valor:
-        return "22-26"
-    elif "27" in valor and "33" in valor:
-        return "27-33"
-    elif "34" in valor and "39" in valor:
-        return "34-39"
-    elif "40" in valor and "45" in valor:
-        return "40-45"
-    elif "46" in valor and "50" in valor:
-        return "46-50"
-    elif "51" in valor and "55" in valor:
-        return "51-55"
-    elif "56" in valor:
-        return "56+"
-    return valor
-
+        nome_arquivo = f'grafic_sunburst_{coluna_nivel1}_{coluna_nivel2}_{coluna_nivel3}.html'.replace(' ', '_')
+        caminho = os.path.join('static/graficos/img', nome_arquivo)
+        fig.write_html(caminho)
