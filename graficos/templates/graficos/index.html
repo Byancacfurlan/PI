@@ -1,3 +1,4 @@
+
 {% load static %}
 <!DOCTYPE html>
 <html lang="pt-br">
@@ -17,16 +18,19 @@
       background-color: #f9f9f9;
     }
 
+
     .top-bar {
       background-color: #1D396C;
       padding: 20px;
     }
+
 
     .topbar {
       background-color: #ffffff;
       padding: 10px;
       color: black;
     }
+
 
     .nav {
       background-color: #1D396C;
@@ -35,15 +39,18 @@
       padding: 10px;
     }
 
+
     .nav a {
       color: white;
       text-decoration: none;
       padding: 5px 10px;
     }
 
+
     .nav a:hover {
       background-color: #005bbb;
     }
+
 
     .container {
       flex: 1;
@@ -52,11 +59,13 @@
       margin-left: 0;
     }
 
+
     .container h1 {
       font-size: 2.2em;
       color: #1D396C;
       margin-bottom: 5px;
     }
+
 
     .container h2 {
       font-size: 1.4em;
@@ -66,20 +75,24 @@
       margin-bottom: 30px;
     }
 
+
     .container h3 {
       color: #1D396C;
       margin-top: 40px;
       font-size: 1.3em;
     }
 
+
     .container p, .container ul {
       margin-bottom: 20px;
     }
+
 
     .container ul {
       padding-left: 20px;
       list-style-type: disc;
     }
+
 
     footer {
       position: fixed;
@@ -93,33 +106,71 @@
       padding: 5px 0;
     }
 
+
+    .top-bar {
+      background-color: #1D396C;
+      padding: 20px;
+      display: flex;              
+      justify-content: flex-end;  
+      align-items: center;        
+    }
+
+
+    .top-bar a.logout-button {
+      background-color: rgb(158, 1, 1);
+      color: white;
+      padding: 5px 10px;
+      text-decoration: none;
+      border-radius: 4px;
+      font-weight: bold;
+      transition: background-color 0.3s;
+    }
+
+
+    .top-bar a.logout-button:hover {
+      background-color: rgb(99, 0, 0);
+    }
+
+
     @media (max-width: 600px) {
       .nav {
         flex-direction: column;
         align-items: center;
       }
 
+
       .container {
         padding: 20px;
       }
+
 
       .container h1 {
         font-size: 1.6em;
       }
 
+
       .container h2 {
         font-size: 1.1em;
       }
+
+
     }
   </style>
 </head>
 <body>
 
-  <div class="top-bar"></div>
+
+  <div class="top-bar">
+    {% if request.session.usuario_id %}
+        <a href="{% url 'logout' %}" class="logout-button">Sair</a>
+    {% endif %}
+  </div>
+
 
   <div class="topbar">
     <img src="{% static 'graficos/img/logo_fmp.jpg' %}" alt="Logo da FMP" height="120">
   </div>
+
 
   <div class="nav">
     <a href="{% url 'index' %}">Home</a>
@@ -131,19 +182,23 @@
     <a href="{% url 'login' %}">Login</a>
   </div>
 
+
   <div class="container">
     <h1>Perfil Discente</h1>
     <h2>Faculdade Municipal de Palhoça</h2>
+
 
     <p>
       Este sistema foi desenvolvido com o objetivo de proporcionar uma análise aprofundada do perfil estudantil da FMP, indo além de uma simples visualização de dados.
       Através de gráficos interativos, estáticos e organizados por curso, oferecemos uma forma clara de entender as particularidades dos estudantes e identificar pontos-chave que influenciam sua jornada acadêmica.
     </p>
 
+
     <p>
       A iniciativa surgiu como parte de um projeto acadêmico multidisciplinar, reunindo habilidades em desenvolvimento web, ciência de dados e usabilidade.
       Os dados utilizados foram coletados diretamente com os alunos por meio de um formulário e organizados estrategicamente para gerar indicadores visuais, permitindo uma leitura acessível e fundamentada da realidade discente.
     </p>
+
 
     <h3>Por que isso é importante?</h3>
     <p>
@@ -151,10 +206,12 @@
       Ao transformar dados brutos em gráficos e informações úteis, abrimos espaço para decisões mais assertivas e humanizadas.
     </p>
 
+
     <p>
       Esta plataforma permite levantar questionamentos relevantes: Quais desafios nossos alunos enfrentam? Como suas rotinas, trabalhos e responsabilidades impactam seu desempenho?
       Que ações institucionais podem ser tomadas para apoiar melhor esses estudantes?
     </p>
+
 
     <h3>O que você encontrará aqui</h3>
     <ul>
@@ -164,11 +221,13 @@
       <li>Navegação simples e intuitiva pelas abas superiores</li>
     </ul>
 
+
     <h3>Visão do Produto</h3>
     <p>
       Esta ferramenta foi pensada para apoiar diretamente a Direção, Coordenadores de Curso e Núcleos de Apoio ao Estudante, fornecendo dados claros e confiáveis para decisões institucionais mais alinhadas com a realidade discente.
       O objetivo é transformar dados em ação: reduzir evasão, aumentar o engajamento e proporcionar um ambiente acadêmico mais acolhedor.
     </p>
+
 
     <h3>Como começar</h3>
     <p>
@@ -178,6 +237,7 @@
   </div>
              
   <button onclick="scrollToTop()" id="btnTopo" title="Voltar ao topo">↑</button>
+
 
   <script>
     window.onscroll = function() {
@@ -189,10 +249,12 @@
       }
     };
 
+
     function scrollToTop() {
       window.scrollTo({ top: 0, behavior: 'smooth' });
     }
   </script>
+
 
   <style>
     #btnTopo {
@@ -212,14 +274,18 @@
       display: none;
     }
 
+
     #btnTopo:hover {
       background-color: #005bbb;
     }
   </style>
 
+
   <footer>
     <p class="rights">&copy; Todos os direitos reservados. Desenvolvido por Alan, Byanca Furlan, Rithiely Schmitt e Thiago Simas.</p>
   </footer>
 
+
 </body>
 </html>
+    
