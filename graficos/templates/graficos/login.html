@@ -16,10 +16,6 @@
             line-height: 1.6;
             background-color: #f9f9f9;
         }
-        header {
-            background-color: #1D396C;
-            padding: 20px;
-        }
         
         .top-bar {
             background-color: #1D396C;
@@ -158,6 +154,13 @@
         <a href="{% url 'cadastro' %}">Cadastro</a>
     </div>
 
+   {% if messages %}
+<ul>
+  {% for message in messages %}
+    <li {% if message.tags %} class="{{ message.tags }}" {% endif %}>{{ message }}</li>
+  {% endfor %}
+</ul>
+{% endif %}
 
     <div class="container">
         <div class="form-container">

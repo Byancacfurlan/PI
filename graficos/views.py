@@ -164,14 +164,8 @@ def login_view(request):
         email = request.POST.get('email')
         senha = request.POST.get('senha')
 
-
-
-
         dao = UsuarioDAO()
         usuario = dao.buscar_por_email(email)
-
-
-
 
         if usuario and usuario.autenticar(senha):
             request.session['usuario_id'] = usuario.id
@@ -179,9 +173,6 @@ def login_view(request):
             return redirect('index')
         else:
             messages.error(request, 'Email ou senha incorretos.')
-
-
-
 
     return render(request, 'graficos/login.html')
 
@@ -199,29 +190,17 @@ def cadastro_view(request):
             messages.error(request, 'Preencha todos os campos.')
             return render(request, 'graficos/cadastro.html')
 
-
-
-
         # validando senhas
         if senha != senha2:
             messages.error(request, 'As senhas não coincidem.')
             return render(request, 'graficos/cadastro.html')
-
-
-
-
+        
         dao = UsuarioDAO()
-
-
-
 
         # ve se o email ja ta em uso
         if dao.buscar_por_email(email):
             messages.error(request, 'Este email já está cadastrado.')
             return render(request, 'graficos/cadastro.html')
-
-
-
 
         # cadastra o usuario
         try:
