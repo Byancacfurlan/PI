@@ -23,13 +23,27 @@
         }
         .top-bar {
             background-color: #1D396C;
-            color: #333;
-            padding: 20px;
-            display: flex;
-            justify-content: flex-end;
-            gap: 20px;
-            border-bottom: 1px solid #ddd;
+            padding: 6px 16px;
+            display: flex;              
+            justify-content: flex-end;  
+            align-items: center;        
         }
+        
+        .top-bar a.logout-button {
+            background-color: rgb(158, 1, 1);
+            color: white;
+            padding: 1px 10px;
+            text-decoration: none;
+            border-radius: 4px;
+            font-weight: bold;
+            transition: background-color 0.3s;
+        }
+
+
+        .top-bar a.logout-button:hover {
+            background-color: rgb(99, 0, 0);
+        }
+
         .topbar {
             background-color:rgb(255, 255, 255);
             padding: 10px;
@@ -97,8 +111,10 @@
 
 <body>
     <div class="top-bar">
-    
-    </div>
+    {% if request.session.usuario_id %}
+        <a href="{% url 'logout' %}" class="logout-button">Sair</a>
+    {% endif %}
+  </div>
     <div class="topbar">
         <img src="{% static 'graficos/img/logo_fmp.jpg' %}" alt="Logo da FMP" height="120">
     </div>
@@ -124,7 +140,45 @@
             </div>
         {% endfor %}
     </div>
+     <button onclick="scrollToTop()" id="btnTopo" title="Voltar ao topo">↑</button>
 
+    <script>
+        window.onscroll = function() {
+        let btn = document.getElementById("btnTopo");
+        if (document.body.scrollTop > 300 || document.documentElement.scrollTop > 300) {
+            btn.style.display = "block";
+        } else {
+            btn.style.display = "none";
+        }
+        };
+
+        function scrollToTop() {
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+    </script>
+
+    <style>
+        #btnTopo {
+        position: fixed;
+        bottom: 80px;
+        right: 20px;
+        z-index: 99;
+        border: none;
+        outline: none;
+        background-color: #1D396C;
+        color: white;
+        cursor: pointer;
+        padding: 12px 16px;
+        border-radius: 50%;
+        font-size: 18px;
+        box-shadow: 0 2px 8px rgba(0,0,0,0.3);
+        display: none;
+        }
+
+        #btnTopo:hover {
+        background-color: #005bbb;
+        }
+    </style>
     <footer class="fixed-bar">
 
         <p class="rights"><span>&copy;&nbsp;</span>Todos os direitos reservados. <span> Desenvolvido por Alan, Byanca Furlan, Rithiely Schmitt e Thiago Simas.</a></span>

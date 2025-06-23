@@ -10,7 +10,6 @@ from django.conf import settings
 
 os.makedirs('static/graficos/img', exist_ok=True)
 
-
 class Usuario:
     def __init__(self, id, email, senha):
         self.id = id
@@ -23,8 +22,6 @@ class Usuario:
     def alterar_senha(self, nova_senha):
         self.senha = nova_senha
 
-
-# Funções para integração com o banco de dados
 class UsuarioDAO:
     def __init__(self, db_name="usuarios.db"):
         self.conn = sqlite3.connect(db_name)
@@ -72,11 +69,10 @@ class GraficoBase:
         ]
     
 class Grafico(GraficoBase):    
- 
         
     def grafico_barra_simples(self, coluna, filtro=None, titulo=''):
+        
         df = self.df.copy()
-       
         if filtro:
             for col, val in filtro.items():
                 df = df[df[col] == val]
@@ -91,17 +87,10 @@ class Grafico(GraficoBase):
             altura = p.get_height()
             ax.text(p.get_x() + p.get_width() / 2.,altura + 0.5, int(altura), ha='center', fontsize=8, color='black')
         plt.tight_layout()
-        
-   
-        
-        # Novo nome baseado na coluna
         nome_arquivo = f'grafico_barra_simples_{coluna}.png'.replace(' ', '_')
         caminho_completo = os.path.join('static/graficos/img', nome_arquivo)
         plt.savefig(caminho_completo)
         plt.close()
-
-
-
     def grafico_barra_dupla(self, coluna_x, coluna_hue, filtro=None, titulo=''):
         df = self.df.copy()
         if filtro:
@@ -127,8 +116,6 @@ class Grafico(GraficoBase):
         caminho_completo = os.path.join('static/graficos/img', nome_arquivo)
         plt.savefig(caminho_completo)
         plt.close()
-
-
 
     def grafico_empilhado(self, coluna_x, coluna_stack, filtro=None, titulo=''):
         df = self.df
@@ -159,9 +146,6 @@ class Grafico(GraficoBase):
         plt.savefig(caminho_completo)
         plt.close()
 
-        
-
-
     def grafico_interativo(self, coluna_x, coluna_color, filtro=None, titulo=''):
         fig = px.histogram(
             self.df,
@@ -175,9 +159,7 @@ class Grafico(GraficoBase):
         caminho = 'static/graficos/img/grafico_interativo.html'
         fig.write_html(caminho)
         plt.close() 
-        
-        
-        
+     
     def grafico_pizza(self, coluna, filtro=None, titulo=''):
         df = self.df.copy()
 
