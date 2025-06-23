@@ -55,20 +55,28 @@
     .container {
       flex: 1;
       padding: 40px 30px 80px 50px;
-      max-width: 900px;
-      margin-left: 0;
+      max-width: 1000px;
+      margin: 30px auto;
+      border-radius: 12px;
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+      transition: box-shadow 0.3s ease;
     }
 
+    .container:hover {
+      box-shadow: 0 6px 25px rgba(0, 0, 0, 0.15);
+    }
 
     .container h1 {
       font-size: 2.2em;
       color: #1D396C;
-      margin-bottom: 5px;
+      margin-bottom: 10px;
+      border-bottom: 3px solid #1D396C;
+      padding-bottom: 8px;
     }
 
 
     .container h2 {
-      font-size: 1.4em;
+      font-size: 1.6em;
       font-weight: normal;
       color: #444;
       margin-top: 0;
@@ -80,16 +88,19 @@
       color: #1D396C;
       margin-top: 40px;
       font-size: 1.3em;
+      border-left: 4px solid #1D396C;
+      padding-left: 10px;
     }
 
 
-    .container p, .container ul {
-      margin-bottom: 20px;
+    .container p {
+      margin-bottom: 18px;
+      text-align: justify;
     }
-
 
     .container ul {
-      padding-left: 20px;
+      margin-bottom: 20px;
+      padding-left: 25px;
       list-style-type: disc;
     }
 
@@ -154,6 +165,47 @@
 
 
     }
+    .sobre {
+    max-width: 1000px;
+    margin: 40px auto;
+    padding: 20px;
+    background-color: white;
+    border-radius: 12px;
+}
+
+.sobre h2 {
+    text-align: center;
+    color: #1D396C;
+    margin-bottom: 30px;
+    border-bottom: 3px solid #1D396C;
+    padding-bottom: 8px;
+}
+
+.membros {
+    display: flex;
+    justify-content: space-around;
+    flex-wrap: wrap;
+    gap: 20px;
+}
+
+.membro {
+    text-align: center;
+}
+
+.membro img {
+    width: 150px;
+    height: 150px;
+    object-fit: cover;
+    border-radius: 50%;
+    border: 3px solid #1D396C;
+}
+
+.membro h3 {
+    color: #1D396C;
+    margin-top: 10px;
+    font-size: 1em;
+}
+
   </style>
 </head>
 <body>
@@ -233,6 +285,32 @@
       Ao realizar <a href="{% url 'login' %}">login</a>, você conseguirá navegar pelas abas no menu acima e explorar os dados de forma segmentada ou geral, comparando e refletindo sobre o que cada curso revela.
       A aba <strong>Diversos</strong> traz uma visão ampla e combinada, enquanto as demais exibem recortes específicos por curso.
     </p>
+    
+<div class="sobre">
+    <h2>Sobre os Desenvolvedores</h2>
+    <div class="membros">
+        <div class="membro">
+            <img src="{% static 'graficos/membros/alan.jpg' %}" alt="Foto de Alan">
+            <h3>Alan Rick </h3>
+        </div>
+
+        <div class="membro">
+            <img src="{% static 'graficos/membros/byanca.jpg' %}" alt="Foto de Byanca">
+            <h3>Byanca Furlan</h3>
+        </div>
+
+        <div class="membro">
+            <img src="{% static 'graficos/membros/rithiely.jpg' %}" alt="Foto de Rithiely">
+            <h3>Rithiely Schmitt</h3>
+        </div>
+
+        <div class="membro">
+            <img src="{% static 'graficos/membros/thiago.jpg' %}" alt="Foto de Thiago">
+            <h3>Thiago Simas</h3>
+        </div>
+    </div>
+</div>
+
   </div>
              
   <button onclick="scrollToTop()" id="btnTopo" title="Voltar ao topo">↑</button>
@@ -279,9 +357,10 @@
     }
   </style>
 
+  
 
   <footer>
-    <p class="rights">&copy; Todos os direitos reservados. Desenvolvido por Alan, Byanca Furlan, Rithiely Schmitt e Thiago Simas.</p>
+    <p class="rights">&copy; Todos os direitos reservados. Desenvolvido por Alan Rick, Byanca Furlan, Rithiely Schmitt e Thiago Simas.</p>
   </footer>
 
 

@@ -98,13 +98,30 @@
             background-color: #005bbb;
         }
 
-        .container {
+         .container {
             flex: 1; 
             padding: 20px;
         }
+        .container h2 {
+            font-size: 2em;
+            color: #1D396C;
+            margin-bottom: 10px;
+            border-bottom: 3px solid #1D396C;
+            padding-bottom: 8px;
+        }
+
 
         .chart {
-            margin-bottom: 50px;
+            margin: 0 auto 40px auto;
+            padding: 10px;
+            border-radius: 8px;
+            text-align: center;
+        }
+
+        .chart img, .chart iframe {
+            display: block;
+            margin: 0 auto;
+            max-width: 50%;
         }
     </style>
 </head>
@@ -132,7 +149,7 @@
 
     <div class="container">
         <h2>Processos Gerenciais</h2>
-        <p>PRG</p>
+        <p>Estes dados representam o perfil dos estudantes do curso de Processos Gerenciais da FMP e são essenciais para apoiar decisões que visam a melhoria contínua da formação acadêmica.</p>
         
          {% for imagem in imagens %}
             <div class="chart">
@@ -181,7 +198,7 @@
     </style>
     <footer class="fixed-bar">
 
-        <p class="rights"><span>&copy;&nbsp;</span>Todos os direitos reservados. <span> Desenvolvido por Alan, Byanca Furlan, Rithiely Schmitt e Thiago Simas.</a></span>
+        <p class="rights"><span>&copy;&nbsp;</span>Todos os direitos reservados. <span> Desenvolvido por Alan Rick, Byanca Furlan, Rithiely Schmitt e Thiago Simas.</a></span>
     </footer>
 </body>
 </html>

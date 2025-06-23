@@ -102,9 +102,27 @@
             flex: 1; 
             padding: 20px;
         }
+        .container h2 {
+            font-size: 2em;
+            color: #1D396C;
+            margin-bottom: 10px;
+            border-bottom: 3px solid #1D396C;
+            padding-bottom: 8px;
+        }
+
 
         .chart {
-            margin-bottom: 50px;
+            margin: 0 auto 40px auto;
+            padding: 10px;
+            border-radius: 8px;
+            text-align: center;
+        }
+
+        .chart img, .chart iframe {
+            display: block;
+            margin: 0 auto;
+            max-width: 50%;
+            bottom: 50px;
         }
     </style>
 </head>
@@ -145,6 +163,11 @@
 
             </div>
         {% endfor %}
+
+    <p>
+  Acesse os documentos completos em  
+  <a href="https://docs.google.com/spreadsheets/d/1rzD0v9JZFE3TJcJGR3XCa8kgV7GcmJC_4140bSI9wek/edit?gid=401087915#gid=401087915" target="_blank" rel="noopener noreferrer">Google Docs</a>.
+</p>
  </div>
   <button onclick="scrollToTop()" id="btnTopo" title="Voltar ao topo">↑</button>
 
@@ -187,7 +210,7 @@
     </style>
     <footer class="fixed-bar">
 
-        <p class="rights"><span>&copy;&nbsp;</span>Todos os direitos reservados. <span> Desenvolvido por Alan, Byanca Furlan, Rithiely Schmitt e Thiago Simas.</a></span>
+        <p class="rights"><span>&copy;&nbsp;</span>Todos os direitos reservados. <span> Desenvolvido por Alan Rick, Byanca Furlan, Rithiely Schmitt e Thiago Simas.</a></span>
     </footer>
 </body>
 </html>
