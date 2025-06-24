@@ -139,9 +139,9 @@ def diversos(request):
     g.grafico_barra_simples('você_pratica_alguma_atividade_física', titulo = 'Atividade física')
     g.grafico_sunburst(
         coluna_nivel1='qual_curso_você_faz_na_fmp',
-        coluna_nivel2='qual_a_sua_faixa_etária',
+        coluna_nivel2='qual_seu_município_de_residência',
         coluna_nivel3='como_você_se_identifica_com_relação_a_seu_gênero',
-        titulo='Distribuição de Curso, Idade e Gênero'
+        titulo='Distribuição de Curso, Município e Gênero'
 )
    
 
